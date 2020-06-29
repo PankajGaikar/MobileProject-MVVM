@@ -14,6 +14,8 @@ class RootViewController: UIViewController, ConstraintRelatableTarget {
     private var tableView: UITableView!
     private var segmentedControl: UISegmentedControl!
     
+    let dataViewModel = DataViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Home"
@@ -30,11 +32,15 @@ class RootViewController: UIViewController, ConstraintRelatableTarget {
         
         //Setup Constraints
         layoutSubViews()
+        
+        //Fetch Data
+        dataViewModel.dataViewModelDelegate = self
+        dataViewModel.getDataList()
     }
     
     //MARK: Setup Views
     fileprivate func setupSegmentedControl() -> Void {
-        segmentedControl = UISegmentedControl(items: ["All", "Image", "Text", "Other"] )
+        segmentedControl = UISegmentedControl(items: Constants.segmentedControlMenu )
         self.view.addSubview(segmentedControl)
         segmentedControl.addTarget(self, action: #selector(segmentedValueChanged(_:)), for: .valueChanged)
     }
@@ -42,12 +48,16 @@ class RootViewController: UIViewController, ConstraintRelatableTarget {
     fileprivate func setupTableView() -> Void {
         tableView = UITableView()
         self.view.addSubview(tableView)
-        tableView.rowHeight = UITableView.automaticDimension
+        tableView.register(DataTableViewCell.self, forCellReuseIdentifier: Constants.ReusableCellIdentifier)
         tableView.estimatedRowHeight = 100.0
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.tableFooterView = UIView()
+        tableView.delegate = self
+        tableView.dataSource = self
     }
     
     /*
-     * This API creates a View Layout for Data List screen. 
+     * This API creates a View Layout for Data List screen.
      */
     fileprivate func layoutSubViews() -> Void {
         segmentedControl.snp.makeConstraints { (make) in
@@ -63,9 +73,47 @@ class RootViewController: UIViewController, ConstraintRelatableTarget {
     
     //MARK: Segmented Control Actions
     @objc func segmentedValueChanged(_ sender:UISegmentedControl!) {
-        print("Selected Segment Index is : \(sender.selectedSegmentIndex)")
+        dataViewModel.currentFilter = sender.selectedSegmentIndex
     }
-
 
 }
 
+//MARK: TableView Delegate and Datasource
+extension RootViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        if dataViewModel.currentFilter == 0 {
+            return 3
+        }
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return dataViewModel.dataList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.ReusableCellIdentifier, for: indexPath) as! DataTableViewCell
+        cell.dataModel = dataViewModel.dataList[indexPath.row]
+        return cell
+    }
+    
+}
+
+//MARK: DataViewModel extension
+extension RootViewController: DataViewModelDelegate {
+    func dataFetchSuccess() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    
+    func dataFetchError(error: DataError) {
+        let alertController = UIAlertController(title: "Error Occurred", message: "Ah uhhh, Something went wrong", preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+        alertController.addAction(okAction)
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
+}

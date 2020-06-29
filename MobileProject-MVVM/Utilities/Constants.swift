@@ -10,4 +10,6 @@ import Foundation
 
 struct Constants {
     static let DataURI = "https://raw.githubusercontent.com/AxxessTech/Mobile-Projects/master/challenge.json"
+    static let ReusableCellIdentifier = "DataTableViewCell"
+    static let segmentedControlMenu = ["All", "Image", "Text", "Other"]
 }
