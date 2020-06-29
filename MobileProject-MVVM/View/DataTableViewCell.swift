@@ -10,9 +10,88 @@ import UIKit
 
 class DataTableViewCell: UITableViewCell {
 
+    let iconImageView = UIImageView()
+    let dataLabel = UILabel()
+    let dateLabel = UILabel()
+    let idLabel = UILabel()
+    let typeLabel = UILabel()
+
+    fileprivate func addViewElementsInContentView() {
+        self.contentView.addSubview(idLabel)
+        self.contentView.addSubview(typeLabel)
+        self.contentView.addSubview(dateLabel)
+        self.contentView.addSubview(iconImageView)
+        self.contentView.addSubview(dataLabel)
+    }
+    
+    fileprivate func setDataForViewElements() {
+        idLabel.text = dataModel?.ID
+        typeLabel.text = dataModel?.type
+        dateLabel.text = dataModel?.date
+        dataLabel.text = dataModel?.data
+        dateLabel.numberOfLines = 0
+        iconImageView.image = UIImage(named: "placeholder.png")
+    }
+    
+    var dataModel: DataModel? {
+        didSet {
+            for subview in self.contentView.subviews {
+                subview.removeFromSuperview()
+            }
+            
+            addViewElementsInContentView()
+            setDataForViewElements()
+            
+            idLabel.snp.makeConstraints { (make) in
+                make.leading.top.equalToSuperview().offset(15)
+                make.height.equalTo(21)
+            }
+            
+            typeLabel.snp.makeConstraints { (make) in
+                make.trailing.top.equalToSuperview().offset(15)
+                make.leading.equalTo(idLabel.snp.trailing).offset(10)
+                make.width.equalTo(idLabel.snp.width)
+                make.height.equalTo(idLabel.snp.height)
+            }
+            
+            if dataModel?.date?.count ?? 0 > 0 {
+                dateLabel.snp.makeConstraints { (make) in
+                    make.leading.trailing.equalToSuperview().offset(15)
+                    make.top.equalTo(idLabel.snp.bottom).offset(10)
+                    make.height.equalTo(21)
+                }
+            }
+            
+            iconImageView.snp.makeConstraints { (make) in
+                make.top.equalTo(dateLabel.snp.bottom).offset(10)
+                make.width.equalTo(100)
+                make.centerX.equalTo(self.contentView)
+                make.bottom.equalToSuperview().offset(-15)
+                
+                if dataModel?.type == "image" {
+                    make.height.equalTo(100)
+                }
+                else
+                {
+                    make.height.equalTo(0)
+                }
+                
+            }
+            
+            dataLabel.snp.makeConstraints { (make) in
+                make.top.equalTo(dateLabel.snp.bottom).offset(10)
+                make.leading.trailing.equalToSuperview().offset(15)
+                make.bottom.equalToSuperview().offset(-15)
+                if dataModel?.type != "data" {
+                    make.height.equalTo(0)
+                }
+            }
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        dataLabel.numberOfLines = 3
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
