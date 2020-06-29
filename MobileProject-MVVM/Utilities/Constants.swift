@@ -9,5 +9,5 @@
 import Foundation
 
 struct Constants {
-    
+    static let DataURI = "https://raw.githubusercontent.com/AxxessTech/Mobile-Projects/master/challenge.json"
 }
