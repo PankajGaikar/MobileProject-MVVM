@@ -54,44 +54,51 @@ class DataTableViewCell: UITableViewCell {
                 make.height.equalTo(idLabel.snp.height)
             }
             
-            if dataModel?.date?.count ?? 0 > 0 {
-                dateLabel.snp.makeConstraints { (make) in
-                    make.leading.trailing.equalToSuperview().offset(15)
-                    make.top.equalTo(idLabel.snp.bottom).offset(10)
-                    make.height.equalTo(21)
-                }
-            }
-            
-            iconImageView.snp.makeConstraints { (make) in
-                make.top.equalTo(dateLabel.snp.bottom).offset(10)
-                make.width.equalTo(100)
-                make.centerX.equalTo(self.contentView)
-                make.bottom.equalToSuperview().offset(-15)
-                
-                if dataModel?.type == "image" {
-                    make.height.equalTo(100)
+            dateLabel.snp.makeConstraints { (make) in
+                make.leading.trailing.equalToSuperview().offset(15)
+                make.top.equalTo(idLabel.snp.bottom).offset(10)
+                if dataModel?.date?.count ?? 0 > 0 {
+//                    make.height.equalTo(21)
                 }
                 else
                 {
                     make.height.equalTo(0)
                 }
-                
             }
             
-            dataLabel.snp.makeConstraints { (make) in
-                make.top.equalTo(dateLabel.snp.bottom).offset(10)
-                make.leading.trailing.equalToSuperview().offset(15)
-                make.bottom.equalToSuperview().offset(-15)
-                if dataModel?.type != "data" {
-                    make.height.equalTo(0)
+            if dataModel?.type == "image" {
+                
+                iconImageView.snp.makeConstraints { (make) in
+                    make.top.equalTo(dateLabel.snp.bottom).offset(10)
+                    make.width.equalTo(100)
+                    make.centerX.equalTo(self.contentView)
+                    make.bottom.equalToSuperview().offset(-15)
+                    
+                    if dataModel?.type == "image" {
+                        make.height.equalTo(100)
+                    }
+                    else
+                    {
+                        make.height.equalTo(0)
+                    }
                 }
             }
+            
+            if dataModel?.type == "text" {
+                dataLabel.numberOfLines = 0
+                dataLabel.snp.makeConstraints { (make) in
+                    make.top.equalTo(dateLabel.snp.bottom).offset(10)
+                    make.leading.trailing.equalToSuperview().offset(15)
+                    make.bottom.equalToSuperview().offset(-15)
+                    make.height.greaterThanOrEqualTo(30)
+                }
+            }
+            self.contentView.updateConstraints()
         }
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        dataLabel.numberOfLines = 3
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
