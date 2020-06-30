@@ -10,7 +10,6 @@ import UIKit
 
 class DataTableViewCell: UITableViewCell {
 
-    let iconImageView = UIImageView()
     let dataLabel = UILabel()
     let dateLabel = UILabel()
     let idLabel = UILabel()
@@ -20,7 +19,6 @@ class DataTableViewCell: UITableViewCell {
         self.contentView.addSubview(idLabel)
         self.contentView.addSubview(typeLabel)
         self.contentView.addSubview(dateLabel)
-        self.contentView.addSubview(iconImageView)
         self.contentView.addSubview(dataLabel)
     }
     
@@ -29,8 +27,7 @@ class DataTableViewCell: UITableViewCell {
         typeLabel.text = dataModel?.type
         dateLabel.text = dataModel?.date
         dataLabel.text = dataModel?.data
-        dateLabel.numberOfLines = 0
-        iconImageView.image = UIImage(named: "placeholder.png")
+        dateLabel.numberOfLines = 5
     }
     
     var dataModel: DataModel? {
@@ -43,22 +40,23 @@ class DataTableViewCell: UITableViewCell {
             setDataForViewElements()
             
             idLabel.snp.makeConstraints { (make) in
-                make.leading.top.equalToSuperview().offset(15)
+                make.topMargin.equalToSuperview().offset(10)
+                make.leadingMargin.equalToSuperview()
                 make.height.equalTo(21)
             }
             
             typeLabel.snp.makeConstraints { (make) in
-                make.trailing.top.equalToSuperview().offset(15)
-                make.leading.equalTo(idLabel.snp.trailing).offset(10)
+                make.trailingMargin.top.equalToSuperview().offset(15)
+                make.leadingMargin.equalTo(idLabel.snp.trailing).offset(10)
                 make.width.equalTo(idLabel.snp.width)
                 make.height.equalTo(idLabel.snp.height)
             }
             
             dateLabel.snp.makeConstraints { (make) in
-                make.leading.trailing.equalToSuperview().offset(15)
+                make.leadingMargin.trailingMargin.equalToSuperview()
                 make.top.equalTo(idLabel.snp.bottom).offset(10)
                 if dataModel?.date?.count ?? 0 > 0 {
-//                    make.height.equalTo(21)
+                    make.height.equalTo(21).priorityLow()
                 }
                 else
                 {
@@ -66,33 +64,13 @@ class DataTableViewCell: UITableViewCell {
                 }
             }
             
-            if dataModel?.type == "image" {
-                
-                iconImageView.snp.makeConstraints { (make) in
-                    make.top.equalTo(dateLabel.snp.bottom).offset(10)
-                    make.width.equalTo(100)
-                    make.centerX.equalTo(self.contentView)
-                    make.bottom.equalToSuperview().offset(-15)
-                    
-                    if dataModel?.type == "image" {
-                        make.height.equalTo(100)
-                    }
-                    else
-                    {
-                        make.height.equalTo(0)
-                    }
-                }
+            dataLabel.numberOfLines = 5
+            dataLabel.snp.makeConstraints { (make) in
+                make.top.equalTo(dateLabel.snp.bottom).offset(10).priorityLow()
+                make.leadingMargin.trailingMargin.equalToSuperview()
+                make.bottom.equalToSuperview().offset(-15)
             }
             
-            if dataModel?.type == "text" {
-                dataLabel.numberOfLines = 0
-                dataLabel.snp.makeConstraints { (make) in
-                    make.top.equalTo(dateLabel.snp.bottom).offset(10)
-                    make.leading.trailing.equalToSuperview().offset(15)
-                    make.bottom.equalToSuperview().offset(-15)
-                    make.height.greaterThanOrEqualTo(30)
-                }
-            }
             self.contentView.updateConstraints()
         }
     }
