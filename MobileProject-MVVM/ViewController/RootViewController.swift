@@ -49,6 +49,7 @@ class RootViewController: UIViewController, ConstraintRelatableTarget {
         tableView = UITableView()
         self.view.addSubview(tableView)
         tableView.register(DataTableViewCell.self, forCellReuseIdentifier: Constants.ReusableCellIdentifier)
+        tableView.register(ImageDataTableViewCell.self, forCellReuseIdentifier: Constants.ReusableImageCellIdentifier)
         tableView.estimatedRowHeight = 100.0
         tableView.rowHeight = UITableView.automaticDimension
         tableView.tableFooterView = UIView()
@@ -93,11 +94,39 @@ extension RootViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let dataModel =  dataViewModel.dataList[indexPath.row]
+        if dataModel.type == "text" ||
+            dataModel.type == "other" {
+            return createDataTableViewCell(tableView, indexPath, dataModel)
+        }
+        else {
+            return createImageTableViewCell(tableView, indexPath, dataModel)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+    
+    /*
+     * This function creates instance of Data Cell and returns it.
+     */
+    fileprivate func createDataTableViewCell(_ tableView: UITableView, _ indexPath: IndexPath, _ dataModel: DataModel) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.ReusableCellIdentifier, for: indexPath) as! DataTableViewCell
-        cell.dataModel = dataViewModel.dataList[indexPath.row]
+        cell.dataModel = dataModel
+        cell.contentView.updateConstraints()
         return cell
     }
     
+    /*
+     * This function creates instance of image cell and returns.
+     */
+    fileprivate func createImageTableViewCell(_ tableView: UITableView, _ indexPath: IndexPath, _ dataModel: DataModel) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.ReusableImageCellIdentifier, for: indexPath) as! ImageDataTableViewCell
+        cell.dataModel = dataModel
+        cell.contentView.updateConstraints()
+        return cell
+    }
 }
 
 //MARK: DataViewModel extension
