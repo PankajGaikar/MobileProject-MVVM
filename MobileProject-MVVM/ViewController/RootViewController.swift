@@ -84,9 +84,6 @@ class RootViewController: UIViewController, ConstraintRelatableTarget {
 extension RootViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        if dataViewModel.currentFilter == 0 {
-            return 3
-        }
         return 1
     }
     
