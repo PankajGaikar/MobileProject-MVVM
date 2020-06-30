@@ -104,6 +104,20 @@ extension RootViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let dataModel =  dataViewModel.dataList[indexPath.row]
+        if dataModel.type == "text" ||
+            dataModel.type == "other" {
+            let dataDetailsViewController = DataDetailsViewController()
+            self.navigationController?.pushViewController(dataDetailsViewController, animated: false)
+        }
+        else {
+            let imageDetailsViewController = ImageDetailsViewController()
+            self.navigationController?.pushViewController(imageDetailsViewController, animated: false)
+        }
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }

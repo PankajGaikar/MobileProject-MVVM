@@ -13,4 +13,8 @@ struct Constants {
     static let ReusableCellIdentifier = "DataTableViewCell"
     static let ReusableImageCellIdentifier = "ImageDataTableViewCell"
     static let segmentedControlMenu = ["All", "Image", "Text", "Other"]
+    
+    static let DataDetailsViewController = "DataDetailsViewController"
+    static let ImageDetailsViewController = "ImageDetailsViewController"
+    
 }
