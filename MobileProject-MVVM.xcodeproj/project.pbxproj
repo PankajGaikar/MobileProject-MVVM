@@ -24,6 +24,7 @@
 		BFB1E19024AA73D000D1E6DA /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB1E18F24AA73D000D1E6DA /* Extensions.swift */; };
 		C16922DF24AB7EDE00DC9E2A /* ImageDataTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16922DE24AB7EDE00DC9E2A /* ImageDataTableViewCell.swift */; };
 		C16922E124AB884700DC9E2A /* ImageDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16922E024AB884700DC9E2A /* ImageDetailsViewController.swift */; };
+		C16922E624AB8FA500DC9E2A /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16922E524AB8FA500DC9E2A /* RealmManager.swift */; };
 		ED5D3B9D84896D34FEB4CC57 /* Pods_MobileProject_MVVM_MobileProject_MVVMUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 503B0886821DAF49477A09AD /* Pods_MobileProject_MVVM_MobileProject_MVVMUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -72,6 +73,7 @@
 		BFB1E18F24AA73D000D1E6DA /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		C16922DE24AB7EDE00DC9E2A /* ImageDataTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDataTableViewCell.swift; sourceTree = "<group>"; };
 		C16922E024AB884700DC9E2A /* ImageDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetailsViewController.swift; sourceTree = "<group>"; };
+		C16922E524AB8FA500DC9E2A /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		D4F62B14539EBD2D07F71AC9 /* Pods-MobileProject-MVVM.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileProject-MVVM.debug.xcconfig"; path = "Target Support Files/Pods-MobileProject-MVVM/Pods-MobileProject-MVVM.debug.xcconfig"; sourceTree = "<group>"; };
 		E818F0E662A2A576920148DD /* Pods_MobileProject_MVVM.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MobileProject_MVVM.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9401BC9FE0F9E93AB91A384 /* Pods-MobileProject-MVVM-MobileProject-MVVMUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileProject-MVVM-MobileProject-MVVMUITests.release.xcconfig"; path = "Target Support Files/Pods-MobileProject-MVVM-MobileProject-MVVMUITests/Pods-MobileProject-MVVM-MobileProject-MVVMUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 		BFB1E14C24AA712000D1E6DA /* MobileProject-MVVM */ = {
 			isa = PBXGroup;
 			children = (
+				C16922E424AB8F8A00DC9E2A /* Realm */,
 				BFB1E18A24AA738A00D1E6DA /* APIService */,
 				BFB1E18924AA737A00D1E6DA /* Utilities */,
 				BFB1E18024AA726300D1E6DA /* View */,
@@ -235,6 +238,14 @@
 				BFB1E18B24AA739F00D1E6DA /* APIService.swift */,
 			);
 			path = APIService;
+			sourceTree = "<group>";
+		};
+		C16922E424AB8F8A00DC9E2A /* Realm */ = {
+			isa = PBXGroup;
+			children = (
+				C16922E524AB8FA500DC9E2A /* RealmManager.swift */,
+			);
+			path = Realm;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -474,6 +485,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C16922E624AB8FA500DC9E2A /* RealmManager.swift in Sources */,
 				BFB1E15224AA712000D1E6DA /* RootViewController.swift in Sources */,
 				BFB1E14E24AA712000D1E6DA /* AppDelegate.swift in Sources */,
 				BFB1E15024AA712000D1E6DA /* SceneDelegate.swift in Sources */,
