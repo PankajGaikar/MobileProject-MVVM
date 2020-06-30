@@ -42,6 +42,7 @@ class RootViewController: UIViewController, ConstraintRelatableTarget {
     fileprivate func setupSegmentedControl() -> Void {
         segmentedControl = UISegmentedControl(items: Constants.segmentedControlMenu )
         self.view.addSubview(segmentedControl)
+        segmentedControl.selectedSegmentIndex = 0
         segmentedControl.addTarget(self, action: #selector(segmentedValueChanged(_:)), for: .valueChanged)
     }
     
@@ -145,7 +146,7 @@ extension RootViewController: UITableViewDelegate, UITableViewDataSource {
 
 //MARK: DataViewModel extension
 extension RootViewController: DataViewModelDelegate {
-    func dataFetchSuccess() {
+    func dataRefreshSuccess() {
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }

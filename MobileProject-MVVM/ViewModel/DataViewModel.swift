@@ -13,7 +13,7 @@ import Foundation
  * such as success in data retrieval and failures
  */
 protocol DataViewModelDelegate {
-    func dataFetchSuccess()
+    func dataRefreshSuccess()
     func dataFetchError(error: DataError)
 }
 
@@ -25,12 +25,19 @@ class DataViewModel {
     // This will be change as soon as user selects different segment.
     public var currentFilter = 0 {
         didSet {
-            print("Changed filter value to \(currentFilter)")
+            setFilteredData()
         }
     }
     
     //Datasource
     var dataList = [DataModel]()
+    
+    //Private array to import from database/API
+    private var persistantDataList = [DataModel]() {
+        didSet {
+            setFilteredData()
+        }
+    }
     
     //MARK: API call
     public func getDataList() -> Void {
@@ -45,10 +52,28 @@ class DataViewModel {
                     
                 case .success(let dataList):
                     //TODO: Save data in Realm
-                    self.dataList = dataList
-                    self.dataViewModelDelegate?.dataFetchSuccess()
+                    self.persistantDataList = dataList
+                    self.dataViewModelDelegate?.dataRefreshSuccess()
             }
         }
+    }
+    
+    fileprivate func setFilteredData() {
+        switch currentFilter {
+        case 1:
+            self.dataList = persistantDataList.filter( { $0.type == "image" } )
+            
+        case 2:
+            self.dataList = persistantDataList.filter( { $0.type == "text" } )
+            
+        case 3:
+            self.dataList = persistantDataList.filter( { $0.type == "other" } )
+            
+        default:
+            self.dataList = persistantDataList
+        }
+        
+        self.dataViewModelDelegate?.dataRefreshSuccess()
     }
     
 }
