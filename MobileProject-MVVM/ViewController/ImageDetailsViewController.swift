@@ -1,19 +1,19 @@
 //
-//  DataDetailsViewController.swift
+//  ImageDetailsViewController.swift
 //  MobileProject-MVVM
 //
-//  Created by Pankaj Gaikar on 30/06/20.
+//  Created by MMT on 30/06/20.
 //  Copyright © 2020 Pankaj Gaikar. All rights reserved.
 //
 
 import UIKit
 
-class DataDetailsViewController: UIViewController {
+class ImageDetailsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
-        self.title = "Data Details View"
+        self.title = "Image Details View"
     }
     
 
