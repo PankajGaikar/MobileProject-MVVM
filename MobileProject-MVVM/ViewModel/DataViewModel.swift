@@ -46,14 +46,15 @@ class DataViewModel {
             
             switch result {
                 
-                case .failure(let error):
-                    print(error.localizedDescription)
-                    self.dataViewModelDelegate?.dataFetchError(error: error)
-                    
-                case .success(let dataList):
-                    //TODO: Save data in Realm
-                    self.persistantDataList = dataList
-                    self.dataViewModelDelegate?.dataRefreshSuccess()
+            case .failure(let error):
+                print(error.localizedDescription)
+                self.dataViewModelDelegate?.dataFetchError(error: error)
+                
+            case .success(let dataList):
+                //TODO: Save data in Realm
+                self.persistantDataList = dataList
+                self.dataViewModelDelegate?.dataRefreshSuccess()
+                RealmManager().storeDataToRealm(models: dataList)
             }
         }
     }

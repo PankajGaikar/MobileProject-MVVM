@@ -7,16 +7,17 @@
 //
 
 import Foundation
+import RealmSwift
 
-struct DataModel: Decodable {
-    let ID: String
-    let type: String
-    let date: String?
-    let data: String?
+class DataModel: Object, Decodable {
+    @objc let ID: String
+    @objc let type: String
+    @objc let date: String?
+    @objc let data: String?
     
     enum CodingKeys: String, CodingKey {
         case ID = "id"
         case type, date, data
     }
-
+    
 }
