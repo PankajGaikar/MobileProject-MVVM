@@ -35,6 +35,7 @@ class RootViewController: UIViewController, ConstraintRelatableTarget {
         
         //Fetch Data
         dataViewModel.dataViewModelDelegate = self
+        dataViewModel.retrieveOfflineDataIfAvailable()
         dataViewModel.getDataList()
     }
     
@@ -152,6 +153,9 @@ extension RootViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 //MARK: DataViewModel extension
+/*
+ * Protocol methods to take actions w.r.t. API call success or failure.
+ */
 extension RootViewController: DataViewModelDelegate {
     func dataRefreshSuccess() {
         DispatchQueue.main.async {
@@ -160,11 +164,13 @@ extension RootViewController: DataViewModelDelegate {
     }
     
     func dataFetchError(error: DataError) {
-        let alertController = UIAlertController(title: "Error Occurred", message: "Ah uhhh, Something went wrong", preferredStyle: .alert)
-        
-        let okAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
-        alertController.addAction(okAction)
-        
-        self.present(alertController, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            let alertController = UIAlertController(title: "Error Occurred", message: "Ah uhhh, Something went wrong", preferredStyle: .alert)
+            
+            let okAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+            alertController.addAction(okAction)
+            
+            self.present(alertController, animated: true, completion: nil)
+        }
     }
 }

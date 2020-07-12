@@ -41,7 +41,7 @@ class DataViewModel {
     
     //MARK: API call
     public func getDataList() -> Void {
-        
+                
         APIservice().getData { (result) in
             
             switch result {
@@ -61,6 +61,12 @@ class DataViewModel {
         }
     }
     
+    public func retrieveOfflineDataIfAvailable() -> Void {
+        persistantDataList = RealmManager().getDataFromRealm()
+        self.dataViewModelDelegate?.dataRefreshSuccess()
+    }
+    
+    // Helper method
     fileprivate func setFilteredData() {
         switch currentFilter {
         case 1:
