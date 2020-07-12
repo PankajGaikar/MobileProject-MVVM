@@ -118,7 +118,7 @@ extension RootViewController: UITableViewDelegate, UITableViewDataSource {
         let dataModel =  dataViewModel.dataList[indexPath.row]
         if dataModel.type == "text" ||
             dataModel.type == "other" {
-            let dataDetailsViewController = DataDetailsViewController()
+            let dataDetailsViewController = DataDetailsViewController(model: dataModel)
             self.navigationController?.pushViewController(dataDetailsViewController, animated: false)
         }
         else {
