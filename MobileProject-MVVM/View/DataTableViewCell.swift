@@ -15,56 +15,20 @@ class DataTableViewCell: UITableViewCell {
     let idLabel = UILabel()
     let typeLabel = UILabel()
 
-    fileprivate func addViewElementsInContentView() {
-        self.contentView.addSubview(idLabel)
-        self.contentView.addSubview(typeLabel)
-        self.contentView.addSubview(dateLabel)
-        self.contentView.addSubview(dataLabel)
-    }
-    
-    fileprivate func setDataForViewElements() {
-        idLabel.text = dataModel?.ID
-        typeLabel.text = dataModel?.type
-        dateLabel.text = dataModel?.date
-        dataLabel.text = dataModel?.data
-        dateLabel.numberOfLines = 5
-    }
-    
     var dataModel: DataModel? {
         didSet {
-            for subview in self.contentView.subviews {
-                subview.removeFromSuperview()
-            }
-            
-            addViewElementsInContentView()
             setDataForViewElements()
-            
-            idLabel.snp.makeConstraints { (make) in
-                make.topMargin.equalToSuperview().offset(10)
-                make.leadingMargin.equalToSuperview()
-            }
-            
-            typeLabel.snp.makeConstraints { (make) in
-                make.trailingMargin.top.equalToSuperview().offset(15)
-                make.leadingMargin.equalTo(idLabel.snp.trailing).offset(10)
-                make.width.equalTo(idLabel.snp.width)
-                make.height.equalTo(idLabel.snp.height)
-            }
-            
-            dateLabel.snp.makeConstraints { (make) in
-                make.leadingMargin.trailingMargin.equalToSuperview()
-                make.top.equalTo(idLabel.snp.bottom).offset(10)
-            }
-            
-            dataLabel.numberOfLines = 5
-            dataLabel.snp.makeConstraints { (make) in
-                make.top.equalTo(dateLabel.snp.bottom).offset(10).priorityLow()
-                make.leadingMargin.trailingMargin.equalToSuperview()
-                make.bottom.equalToSuperview().offset(-15)
-            }
-            
-            self.contentView.updateConstraints()
         }
+    }
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        addViewElementsInContentView()
+        setupLayoutConstraints()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func awakeFromNib() {
@@ -75,6 +39,55 @@ class DataTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+
+    fileprivate func addViewElementsInContentView() {
+        self.contentView.addSubview(idLabel)
+        self.contentView.addSubview(typeLabel)
+        self.contentView.addSubview(dateLabel)
+        self.contentView.addSubview(dataLabel)
+    }
+    
+    //Adds view element to content view.
+    fileprivate func setDataForViewElements() {
+        idLabel.text = dataModel?.ID
+        typeLabel.text = dataModel?.type
+        dateLabel.text = dataModel?.date
+        dataLabel.text = dataModel?.data
+        dateLabel.numberOfLines = 5
+    }
+    
+    fileprivate func setupLayoutConstraints() {
+        /*
+         * Keep id and type side by side
+         * Place date below it
+         * Show text/other data below it.
+         */
+        idLabel.snp.makeConstraints { (make) in
+            make.topMargin.equalToSuperview().offset(10)
+            make.leadingMargin.equalToSuperview()
+        }
+        
+        typeLabel.snp.makeConstraints { (make) in
+            make.trailingMargin.top.equalToSuperview().offset(15)
+            make.leadingMargin.equalTo(idLabel.snp.trailing).offset(10)
+            make.width.equalTo(idLabel.snp.width)
+            make.height.equalTo(idLabel.snp.height)
+        }
+        
+        dateLabel.snp.makeConstraints { (make) in
+            make.leadingMargin.trailingMargin.equalToSuperview()
+            make.top.equalTo(idLabel.snp.bottom).offset(10)
+        }
+        
+        dataLabel.numberOfLines = 5
+        dataLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(dateLabel.snp.bottom).offset(10).priorityLow()
+            make.leadingMargin.trailingMargin.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-15)
+        }
+        
+        self.contentView.updateConstraints()
     }
 
 }

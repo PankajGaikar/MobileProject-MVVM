@@ -128,6 +128,10 @@ extension RootViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let dataModel =  dataViewModel.dataList[indexPath.row]
+        if dataModel.type == "image" {
+            return 120
+        }
         return UITableView.automaticDimension
     }
     
