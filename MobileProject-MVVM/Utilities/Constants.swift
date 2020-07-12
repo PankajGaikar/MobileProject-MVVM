@@ -16,5 +16,8 @@ struct Constants {
     
     static let DataDetailsViewController = "DataDetailsViewController"
     static let ImageDetailsViewController = "ImageDetailsViewController"
-    
+}
+
+struct UIConstants {
+    static let PlaceholderImage = "placeholder.png"
 }

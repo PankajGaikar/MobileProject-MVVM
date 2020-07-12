@@ -14,7 +14,7 @@ class RealmManager {
     func storeDataToRealm(models: [DataModel]) -> Void {
         let realm = try! Realm()
         try! realm.write {
-            realm.add(models)
+            realm.add(models, update: .all)
         }
     }
     
