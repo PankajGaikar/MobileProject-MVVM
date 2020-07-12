@@ -47,6 +47,9 @@ class ImageDetailsViewController: UIViewController {
         containerView.addSubview(dateLabel)
         
         imageView.loadImage(url: dataModel.data ?? "", placeholder: UIImage(named: UIConstants.PlaceholderImage))
+        
+        //Change font for date label.
+        dateLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
         dateLabel.text = dataModel.date
     }
 

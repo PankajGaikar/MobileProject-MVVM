@@ -50,6 +50,11 @@ class DataTableViewCell: UITableViewCell {
     
     //Adds view element to content view.
     fileprivate func setDataForViewElements() {
+        idLabel.font = UIFont.preferredFont(forTextStyle: .callout)
+        typeLabel.font = UIFont.preferredFont(forTextStyle: .callout)
+        dateLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
+        dataLabel.font = UIFont.preferredFont(forTextStyle: .title2)
+        
         idLabel.text = dataModel?.ID
         typeLabel.text = dataModel?.type
         dateLabel.text = dataModel?.date
