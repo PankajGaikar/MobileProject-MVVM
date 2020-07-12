@@ -44,7 +44,14 @@ class DataDetailsViewController: UIViewController {
         containerView.addSubview(dataLabel)
         containerView.addSubview(dateLabel)
         
+        //Show all content on label.
+        //Allow unlimted lines
         dataLabel.numberOfLines = 0;
+        dataLabel.font = UIFont.preferredFont(forTextStyle: .body)
+        
+        //Change font for date label.
+        dateLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
+        
         dataLabel.text = dataModel.data
         dateLabel.text = dataModel.date
     }

@@ -41,7 +41,11 @@ class ImageDataTableViewCell: UITableViewCell {
      */
     
     //Add view elements to ContentView
-    fileprivate func addViewElementsInContentView() {
+    fileprivate func addViewElementsInContentView() {        
+        idLabel.font = UIFont.preferredFont(forTextStyle: .callout)
+        typeLabel.font = UIFont.preferredFont(forTextStyle: .callout)
+        dateLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
+
         self.contentView.addSubview(iconImageView)
         self.contentView.addSubview(idLabel)
         self.contentView.addSubview(typeLabel)
