@@ -83,16 +83,26 @@ class RootViewController: UIViewController, ConstraintRelatableTarget {
 //MARK: TableView Delegate and Datasource
 extension RootViewController: UITableViewDelegate, UITableViewDataSource {
     
+    /*
+     * Categorized data. Usually one section atm.
+     */
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
+    /*
+     * get Filtered data count according to category from ViewModel.
+     */
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataViewModel.dataList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let dataModel =  dataViewModel.dataList[indexPath.row]
+        
+        /*
+         * Since there is similarity between 'text' and 'other data', utilise same tableview cell.
+         */
         if dataModel.type == "text" ||
             dataModel.type == "other" {
             return createDataTableViewCell(tableView, indexPath, dataModel)

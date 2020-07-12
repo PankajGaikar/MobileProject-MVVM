@@ -42,7 +42,6 @@ class DataTableViewCell: UITableViewCell {
             idLabel.snp.makeConstraints { (make) in
                 make.topMargin.equalToSuperview().offset(10)
                 make.leadingMargin.equalToSuperview()
-                make.height.equalTo(21)
             }
             
             typeLabel.snp.makeConstraints { (make) in
@@ -55,13 +54,6 @@ class DataTableViewCell: UITableViewCell {
             dateLabel.snp.makeConstraints { (make) in
                 make.leadingMargin.trailingMargin.equalToSuperview()
                 make.top.equalTo(idLabel.snp.bottom).offset(10)
-                if dataModel?.date?.count ?? 0 > 0 {
-                    make.height.equalTo(21).priorityLow()
-                }
-                else
-                {
-                    make.height.equalTo(0)
-                }
             }
             
             dataLabel.numberOfLines = 5

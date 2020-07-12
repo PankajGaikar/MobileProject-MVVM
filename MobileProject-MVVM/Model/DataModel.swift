@@ -10,14 +10,18 @@ import Foundation
 import RealmSwift
 
 class DataModel: Object, Decodable {
-    @objc let ID: String
-    @objc let type: String
-    @objc let date: String?
-    @objc let data: String?
+    @objc dynamic var ID: String
+    @objc dynamic var type: String
+    @objc dynamic var date: String?
+    @objc dynamic var data: String?
     
     enum CodingKeys: String, CodingKey {
         case ID = "id"
         case type, date, data
+    }
+    
+    override class func primaryKey() -> String? {
+        return "ID"
     }
     
 }

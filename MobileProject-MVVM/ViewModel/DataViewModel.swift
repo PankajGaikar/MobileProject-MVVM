@@ -54,7 +54,9 @@ class DataViewModel {
                 //TODO: Save data in Realm
                 self.persistantDataList = dataList
                 self.dataViewModelDelegate?.dataRefreshSuccess()
-                RealmManager().storeDataToRealm(models: dataList)
+                DispatchQueue.main.async {
+                    RealmManager().storeDataToRealm(models: dataList)
+                }
             }
         }
     }
