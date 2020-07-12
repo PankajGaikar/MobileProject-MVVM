@@ -31,9 +31,8 @@ extension UIImageView {
                     cache.storeCachedResponse(cachedData, for: request)
                     DispatchQueue.main.async {
                         self.image = image
-                        self.frame.size = placeholder?.size as! CGSize
                     }
-                }
+                }                
             }).resume()
         }
     }
