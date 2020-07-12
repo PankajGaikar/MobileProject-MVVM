@@ -122,7 +122,7 @@ extension RootViewController: UITableViewDelegate, UITableViewDataSource {
             self.navigationController?.pushViewController(dataDetailsViewController, animated: false)
         }
         else {
-            let imageDetailsViewController = ImageDetailsViewController()
+            let imageDetailsViewController = ImageDetailsViewController(model: dataModel)
             self.navigationController?.pushViewController(imageDetailsViewController, animated: false)
         }
     }
